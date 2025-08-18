@@ -1,54 +1,48 @@
-import { createApp } from 'vue'
-import App from './App.vue'
+import { createApp } from "vue"
+import PrimeVue from "primevue/config"
+import App from "./App.vue"
 
-// PrimeVue
-import PrimeVue from 'primevue/config'
+// PrimeVue Components
+import Button from "primevue/button"
+import InputText from "primevue/inputtext"
+import Dropdown from "primevue/dropdown"
+import Calendar from "primevue/calendar"
+import InputNumber from "primevue/inputnumber"
+import Checkbox from "primevue/checkbox"
+import Textarea from "primevue/textarea"
+import DataTable from "primevue/datatable"
+import Column from "primevue/column"
+import Card from "primevue/card"
 
-// PrimeVue CSS
-import 'primevue/resources/themes/saga-blue/theme.css' // pick your theme
-import 'primevue/resources/primevue.min.css'
-import 'primeicons/primeicons.css'
+// PrimeVue Styles
+import "primevue/resources/themes/lara-light-blue/theme.css"
+import "primevue/resources/primevue.min.css"
+import "primeicons/primeicons.css"
+import "primeflex/primeflex.css"
 
-// PrimeFlex
-import 'primeflex/primeflex.css'
+// Oh Vue Icons
+import { OhVueIcon, addIcons } from "oh-vue-icons"
+import { FaPlus, FaTrash, FaEdit, FaShoppingCart, FaFileInvoice, FaRuler } from "oh-vue-icons/icons"
 
-// Tailwind CSS (optional if you use tailwind classes in your template)
-import './index.css'
-
-// Global components
-import Button from 'primevue/button'
-import Card from 'primevue/card'
-import InputText from 'primevue/inputtext'
-import InputNumber from 'primevue/inputnumber'
-import Dropdown from 'primevue/dropdown'
-import Calendar from 'primevue/calendar'
-import DataTable from 'primevue/datatable'
-import Column from 'primevue/column'
-import Checkbox from 'primevue/checkbox'
-import Divider from 'primevue/divider'
-import Avatar from 'primevue/avatar'
-import Badge from 'primevue/badge'
-import ToastService from 'primevue/toastservice'
-import Toast from 'primevue/toast'
+addIcons(FaPlus, FaTrash, FaEdit, FaShoppingCart, FaFileInvoice, FaRuler)
 
 const app = createApp(App)
 
-app.use(PrimeVue, { ripple: true })
-app.use(ToastService)
+app.use(PrimeVue)
 
-// Register components globally
-app.component('Button', Button)
-app.component('Card', Card)
-app.component('InputText', InputText)
-app.component('InputNumber', InputNumber)
-app.component('Dropdown', Dropdown)
-app.component('Calendar', Calendar)
-app.component('DataTable', DataTable)
-app.component('Column', Column)
-app.component('Checkbox', Checkbox)
-app.component('Divider', Divider)
-app.component('Avatar', Avatar)
-app.component('Badge', Badge)
-app.component('Toast', Toast)
+// Register PrimeVue components
+app.component("Button", Button)
+app.component("InputText", InputText)
+app.component("Dropdown", Dropdown)
+app.component("Calendar", Calendar)
+app.component("InputNumber", InputNumber)
+app.component("Checkbox", Checkbox)
+app.component("Textarea", Textarea)
+app.component("DataTable", DataTable)
+app.component("Column", Column)
+app.component("Card", Card)
 
-app.mount('#app')
+// Register Oh Vue Icons
+app.component("v-icon", OhVueIcon)
+
+app.mount("#app")
