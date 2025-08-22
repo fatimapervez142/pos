@@ -433,7 +433,8 @@ const getSeverity = (status) => {
 }
 .custom-table .p-datatable-tbody > tr > td {
   font-size: 13px;
-  padding: 10px 14px;
+  padding: 6px 10px;
+  line-height: 1.2;
 }
 
 /* Status Chip */
