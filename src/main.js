@@ -13,6 +13,7 @@ import Textarea from "primevue/textarea"
 import DataTable from "primevue/datatable"
 import Column from "primevue/column"
 import Card from "primevue/card"
+import TabMenu from "primevue/tabmenu"
 
 // PrimeVue Styles
 import "primevue/resources/themes/lara-light-blue/theme.css"
@@ -22,9 +23,9 @@ import "primeflex/primeflex.css"
 
 // Oh Vue Icons
 import { OhVueIcon, addIcons } from "oh-vue-icons"
-import { FaPlus, FaTrash, FaEdit, FaShoppingCart, FaFileInvoice, FaRuler } from "oh-vue-icons/icons"
+import { FaPlus, FaTrash, FaEdit, FaShoppingCart, FaFileInvoice, FaRuler, FaUser, FaSearch, RiDashboardFill } from "oh-vue-icons/icons"
 
-addIcons(FaPlus, FaTrash, FaEdit, FaShoppingCart, FaFileInvoice, FaRuler)
+addIcons(FaPlus, FaTrash, FaEdit, FaShoppingCart, FaFileInvoice, FaRuler,FaUser, FaSearch, RiDashboardFill)
 
 const app = createApp(App)
 
@@ -41,6 +42,7 @@ app.component("Textarea", Textarea)
 app.component("DataTable", DataTable)
 app.component("Column", Column)
 app.component("Card", Card)
+app.component("TabMenu", TabMenu)
 
 // Register Oh Vue Icons
 app.component("v-icon", OhVueIcon)

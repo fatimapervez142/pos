@@ -104,11 +104,11 @@
                   buttonLayout="stacked"
                   :min="0"
                   :max="999"
-                  class="w-3rem custom-input-number-compact"
-                  inputClass="w-3rem"               />
+                  class="custom-input-number-compact"
+                />
               </template>
             </Column>
-            <Column field="price" header="Price" style="width: 12% " headerStyle="text-align: right; padding-left: 10px;" bodyStyle="text-align: center;">
+            <Column field="price" header="Price" style="width: 12%" headerStyle="text-align: center;" bodyStyle="text-align: center;">
               <template #body="slotProps">
                 <div v-if="slotProps.data.customPrice" class="text-center">
                   <span class="text-xs text-secondary">PKR</span><br>
@@ -147,14 +147,13 @@
                 />
               </template>
             </Column>
-            <Column field="discount" header="Discount" style="width: 10%" headerStyle="text-align: right;" bodyStyle="text-align: center;">
+            <Column field="discount" header="Discount" style="width: 10%" headerStyle="text-align: center;" bodyStyle="text-align: center;">
               <template #body="slotProps">
                 <InputNumber 
                   v-model="slotProps.data.discount" 
                   :min="0"
                   mode="decimal"
-                  class="w-4rem custom-input-number-compact"
-                  inputClass="w-4rem"
+                  class="custom-input-number-compact"
                 />
               </template>
             </Column>
@@ -209,7 +208,7 @@
           <div class="flex align-items-center justify-content-between p-3 border-bottom-1 surface-border cursor-pointer" @click="toggleItemDescriptions">
             <div class="flex align-items-center">
               <oh-vue-icon name="hi-document-text" fill="#0891b2" class="mr-2" />
-              <h3 class="m-0" style="color: #1f2937;">Descriptions</h3>
+              <h3 class="m-0" style="color: #1f2937;">Item Descriptions</h3>
             </div>
             <oh-vue-icon :name="itemDescriptionsExpanded ? 'hi-chevron-up' : 'hi-chevron-down'" fill="#6b7280" />
           </div>
@@ -232,7 +231,7 @@
           <div class="flex align-items-center justify-content-between p-3 border-bottom-1 surface-border cursor-pointer" @click="toggleMeasurements">
             <div class="flex align-items-center">
               <oh-vue-icon name="hi-adjustments" fill="#0891b2" class="mr-2" />
-              <h3 class="m-0" style="color: #1f2937;">Measurements</h3>
+              <h3 class="m-0" style="color: #1f2937;">Details & Measurements</h3>
             </div>
             <oh-vue-icon :name="measurementsExpanded ? 'hi-chevron-up' : 'hi-chevron-down'" fill="#6b7280" />
           </div>
@@ -950,7 +949,6 @@ const processOrder = () => {
   font-weight: 600 !important;
   padding: 0.75rem 0.5rem !important;
   border-bottom: 2px solid #e5e7eb !important;
-  text-align: right !important;
 }
 
 /* Added custom styling for compact InputNumber components */
@@ -985,6 +983,7 @@ const processOrder = () => {
   color: #6b7280 !important;
   width: 24px !important;
   height: 50% !important;
+  padding: 0 !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -1014,4 +1013,3 @@ const processOrder = () => {
   content: "▼" !important;
 }
 </style>
-

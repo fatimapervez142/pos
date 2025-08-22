@@ -7,5 +7,5 @@
 </template>
 
 <script setup>
-import OrderManagement from './components/OrderManagement.vue'
+import OrderManagement from './components/OrderListing.vue'
 </script>
