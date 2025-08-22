@@ -107,6 +107,7 @@
           Next
         </button>
       </div>
+      <div class="spacer"></div>
     </div>
   </div>
 </template>
@@ -385,12 +386,12 @@ const getSeverity = (status) => {
   padding: 0;
 }
 .create-btn {
-  background: #10b981;
-  border: 1px solid #10b981;
+  background: #0891b2;
+  border: 1px solid #0891b2;
 }
 .create-btn:hover {
-  background: #0ea371;
-  border-color: #0ea371;
+  background: #0e7490;
+  border-color: #0e7490;
 }
 
 /* Tabs */
@@ -439,12 +440,12 @@ const getSeverity = (status) => {
 
 /* Invoice link */
 .invoice-link {
-  color: #0891b2;
-  font-weight: 600;
+  color: inherit;
+  font-weight: inherit;
   text-decoration: none;
 }
 .invoice-link:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 /* Grand total */
@@ -466,24 +467,26 @@ const getSeverity = (status) => {
   gap: 4px;
 }
 .action-btn {
-  color: #6b7280;
+  color: #0891b2;
 }
 
 /* Footer */
 .footer-bar {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
   margin-top: 16px;
 }
 .showing {
   color: #6b7280;
   font-size: 13px;
+  justify-self: start;
 }
 .pagination {
   display: flex;
   align-items: center;
   justify-content: center;
+  justify-self: center;
 }
 .page-btn {
   border: 1px solid #0891b2;
@@ -507,4 +510,5 @@ const getSeverity = (status) => {
   opacity: 0.5;
   cursor: not-allowed;
 }
+.spacer { height: 0; }
 </style>
