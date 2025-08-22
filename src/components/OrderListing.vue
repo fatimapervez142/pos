@@ -68,7 +68,6 @@
         <template #body>
           <div class="row-actions">
             <Button icon="pi pi-eye" class="p-button-text p-button-sm action-btn" />
-            <Button icon="pi pi-copy" class="p-button-text p-button-sm action-btn" />
             <Button icon="pi pi-pencil" class="p-button-text p-button-sm action-btn" />
           </div>
         </template>
