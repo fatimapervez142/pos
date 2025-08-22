@@ -7,8 +7,16 @@
       <span class="mx-2">›</span> Order
     </div>
 
-    <!-- Tabs -->
-    <TabMenu :model="tabs" class="mb-4 custom-tabs" v-model:activeIndex="activeTab" />
+    <!-- Tabs + Toolbar -->
+    <div class="tabs-toolbar">
+      <TabMenu :model="tabs" class="custom-tabs" v-model:activeIndex="activeTab" />
+      <div class="toolbar-actions">
+        <Button class="icon-btn" icon="pi pi-filter" @click="onFilter" />
+        <Button class="icon-btn" icon="pi pi-sort-alt" @click="onSort" />
+        <Button class="icon-btn" icon="pi pi-ellipsis-v" @click="onMore" />
+        <Button class="create-btn" icon="pi pi-plus" label="Create" @click="onCreate" />
+      </div>
+    </div>
 
     <!-- Orders Table (depends on active tab) -->
     <DataTable
@@ -36,46 +44,69 @@
         </template>
       </Column>
 
-      <Column field="invoice" header="INVOICE #"></Column>
+      <!-- Invoice as link -->
+      <Column header="INVOICE #">
+        <template #body="slotProps">
+          <a href="#" class="invoice-link">{{ slotProps.data.invoice }}</a>
+        </template>
+      </Column>
+
       <Column field="referenceOrder" header="REFERENCE ORDER"></Column>
-      <Column field="grandTotal" header="GRAND TOTAL"></Column>
+
+      <!-- Grand total with currency label -->
+      <Column header="GRAND TOTAL">
+        <template #body="slotProps">
+          <div class="grand-total">
+            <div class="currency">{{ slotProps.data.currency }}</div>
+            <div class="amount">{{ slotProps.data.grandTotal }}</div>
+          </div>
+        </template>
+      </Column>
 
       <!-- Actions -->
       <Column header="ACTIONS">
         <template #body>
-          <Button icon="pi pi-eye" class="p-button-text p-button-sm" />
-          <Button icon="pi pi-pencil" class="p-button-text p-button-sm ml-2" />
+          <div class="row-actions">
+            <Button icon="pi pi-eye" class="p-button-text p-button-sm action-btn" />
+            <Button icon="pi pi-copy" class="p-button-text p-button-sm action-btn" />
+            <Button icon="pi pi-pencil" class="p-button-text p-button-sm action-btn" />
+          </div>
         </template>
       </Column>
     </DataTable>
 
-    <!-- Custom Pagination -->
-    <div class="pagination mt-3">
-      <button
-        class="page-btn"
-        :disabled="currentPage === 1"
-        @click="prevPage"
-      >
-        Previous
-      </button>
+    <!-- Footer: showing + pagination -->
+    <div class="footer-bar mt-3">
+      <div class="showing">
+        Showing {{ startIndex + 1 }}-{{ endIndex }} of {{ filteredOrders.length }}
+      </div>
+      <div class="pagination">
+        <button
+          class="page-btn"
+          :disabled="currentPage === 1"
+          @click="prevPage"
+        >
+          Previous
+        </button>
 
-      <button
-        v-for="page in totalPages"
-        :key="page"
-        class="page-btn"
-        :class="{ active: page === currentPage }"
-        @click="goToPage(page)"
-      >
-        {{ page }}
-      </button>
+        <button
+          v-for="page in totalPages"
+          :key="page"
+          class="page-btn"
+          :class="{ active: page === currentPage }"
+          @click="goToPage(page)"
+        >
+          {{ page }}
+        </button>
 
-      <button
-        class="page-btn"
-        :disabled="currentPage === totalPages"
-        @click="nextPage"
-      >
-        Next
-      </button>
+        <button
+          class="page-btn"
+          :disabled="currentPage === totalPages"
+          @click="nextPage"
+        >
+          Next
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -98,7 +129,7 @@ const tabs = [
 
 const activeTab = ref(0) // default: Completed
 const currentPage = ref(1)
-const rowsPerPage = 3
+const rowsPerPage = 10
 
 // Mock Orders Data
 const allOrders = ref([
@@ -112,7 +143,112 @@ const allOrders = ref([
     status: "Completed",
     invoice: "00097",
     referenceOrder: "-",
-    grandTotal: "PKR 33,040.00",
+    currency: "PKR",
+    grandTotal: "33,040.00",
+  },
+  {
+    orderNo: "SO-00117",
+    orderType: "Delivery Order",
+    orderDate: "19-Aug-2025",
+    manualBookNo: "-",
+    deliveryDate: "19-Aug-2025",
+    customer: "Walk-in Customer",
+    status: "Completed",
+    invoice: "00096",
+    referenceOrder: "-",
+    currency: "PKR",
+    grandTotal: "35,400.00",
+  },
+  {
+    orderNo: "SO-00115",
+    orderType: "Delivery Order",
+    orderDate: "18-Aug-2025",
+    manualBookNo: "-",
+    deliveryDate: "18-Aug-2025",
+    customer: "Walk-in Customer",
+    status: "Completed",
+    invoice: "00095",
+    referenceOrder: "-",
+    currency: "PKR",
+    grandTotal: "66,080.00",
+  },
+  {
+    orderNo: "SO-00111",
+    orderType: "Sale Order",
+    orderDate: "12-Aug-2025",
+    manualBookNo: "MN-0143",
+    deliveryDate: "12-Aug-2025",
+    customer: "Walk-in Customer",
+    status: "Completed",
+    invoice: "00094",
+    referenceOrder: "-",
+    currency: "PKR",
+    grandTotal: "132,160.00",
+  },
+  {
+    orderNo: "SO-00110",
+    orderType: "Delivery Order",
+    orderDate: "12-Aug-2025",
+    manualBookNo: "-",
+    deliveryDate: "12-Aug-2025",
+    customer: "Walk-in Customer",
+    status: "Completed",
+    invoice: "00093",
+    referenceOrder: "-",
+    currency: "PKR",
+    grandTotal: "66,080.00",
+  },
+  {
+    orderNo: "SO-00108",
+    orderType: "Delivery Order",
+    orderDate: "12-Aug-2025",
+    manualBookNo: "-",
+    deliveryDate: "12-Aug-2025",
+    customer: "Walk-in Customer",
+    status: "Completed",
+    invoice: "00092",
+    referenceOrder: "-",
+    currency: "PKR",
+    grandTotal: "66,080.00",
+  },
+  {
+    orderNo: "SO-00105",
+    orderType: "Sale Order",
+    orderDate: "07-Aug-2025",
+    manualBookNo: "-",
+    deliveryDate: "13-Aug-2025",
+    customer: "Walk-in Customer",
+    status: "Completed",
+    invoice: "00091",
+    referenceOrder: "-",
+    currency: "PKR",
+    grandTotal: "66,080.00",
+  },
+  {
+    orderNo: "SO-00103",
+    orderType: "Delivery Order",
+    orderDate: "06-Aug-2025",
+    manualBookNo: "-",
+    deliveryDate: "06-Aug-2025",
+    customer: "Abdul Hannan",
+    status: "Completed",
+    invoice: "00089",
+    referenceOrder: "-",
+    currency: "PKR",
+    grandTotal: "66,080.00",
+  },
+  {
+    orderNo: "SO-00099",
+    orderType: "Delivery Order",
+    orderDate: "04-Aug-2025",
+    manualBookNo: "-",
+    deliveryDate: "04-Aug-2025",
+    customer: "Abdullah bin Saad",
+    status: "Completed",
+    invoice: "00084",
+    referenceOrder: "-",
+    currency: "PKR",
+    grandTotal: "66,080.00",
   },
   {
     orderNo: "SO-00120",
@@ -124,7 +260,8 @@ const allOrders = ref([
     status: "Hold",
     invoice: "00098",
     referenceOrder: "-",
-    grandTotal: "PKR 25,000.00",
+    currency: "PKR",
+    grandTotal: "25,000.00",
   },
   {
     orderNo: "SO-00121",
@@ -136,7 +273,8 @@ const allOrders = ref([
     status: "In Process",
     invoice: "00099",
     referenceOrder: "-",
-    grandTotal: "PKR 40,000.00",
+    currency: "PKR",
+    grandTotal: "40,000.00",
   },
   {
     orderNo: "SO-00122",
@@ -148,19 +286,8 @@ const allOrders = ref([
     status: "Cancelled",
     invoice: "00100",
     referenceOrder: "-",
-    grandTotal: "PKR 10,000.00",
-  },
-  {
-    orderNo: "SO-00123",
-    orderType: "Delivery Order",
-    orderDate: "22-Aug-2025",
-    manualBookNo: "-",
-    deliveryDate: "22-Aug-2025",
-    customer: "Walk-in Customer",
-    status: "Completed",
-    invoice: "00101",
-    referenceOrder: "-",
-    grandTotal: "PKR 60,000.00",
+    currency: "PKR",
+    grandTotal: "10,000.00",
   },
 ])
 
@@ -176,9 +303,14 @@ const totalPages = computed(() =>
   Math.ceil(filteredOrders.value.length / rowsPerPage)
 )
 
+const startIndex = computed(() => (currentPage.value - 1) * rowsPerPage)
+const endIndex = computed(() => {
+  const end = startIndex.value + rowsPerPage
+  return Math.min(end, filteredOrders.value.length)
+})
+
 const paginatedOrders = computed(() => {
-  const start = (currentPage.value - 1) * rowsPerPage
-  return filteredOrders.value.slice(start, start + rowsPerPage)
+  return filteredOrders.value.slice(startIndex.value, endIndex.value)
 })
 
 const goToPage = (page) => {
@@ -190,6 +322,12 @@ const prevPage = () => {
 const nextPage = () => {
   if (currentPage.value < totalPages.value) currentPage.value++
 }
+
+// Toolbar actions (placeholders)
+const onFilter = () => {}
+const onSort = () => {}
+const onMore = () => {}
+const onCreate = () => {}
 
 // Status Colors
 const getSeverity = (status) => {
@@ -221,6 +359,38 @@ const getSeverity = (status) => {
 .breadcrumb {
   font-size: 14px;
   color: #0891b2;
+}
+
+/* Tabs + Toolbar */
+.tabs-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.icon-btn :deep(.p-button-icon) {
+  color: #0e7490;
+}
+.icon-btn {
+  background: #fff;
+  border: 1px solid #d1d5db;
+  color: #0e7490;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+}
+.create-btn {
+  background: #10b981;
+  border: 1px solid #10b981;
+}
+.create-btn:hover {
+  background: #0ea371;
+  border-color: #0ea371;
 }
 
 /* Tabs */
@@ -267,12 +437,53 @@ const getSeverity = (status) => {
   padding: 2px 10px;
 }
 
-/* Pagination */
+/* Invoice link */
+.invoice-link {
+  color: #0891b2;
+  font-weight: 600;
+  text-decoration: none;
+}
+.invoice-link:hover {
+  text-decoration: underline;
+}
+
+/* Grand total */
+.grand-total {
+  text-align: right;
+}
+.grand-total .currency {
+  color: #6b7280;
+  font-size: 11px;
+  line-height: 1;
+}
+.grand-total .amount {
+  font-weight: 600;
+}
+
+/* Row actions */
+.row-actions {
+  display: flex;
+  gap: 4px;
+}
+.action-btn {
+  color: #6b7280;
+}
+
+/* Footer */
+.footer-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+.showing {
+  color: #6b7280;
+  font-size: 13px;
+}
 .pagination {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 16px;
 }
 .page-btn {
   border: 1px solid #0891b2;
