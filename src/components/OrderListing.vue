@@ -406,10 +406,14 @@ const getSeverity = (status) => {
   border-radius: 8px;
   padding: 6px 16px;
   font-weight: 500;
-  color: #0891b2;
+  color: #0891b2 !important;
+}
+.custom-tabs .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link .p-menuitem-text {
+  color: #0891b2 !important;
 }
 .custom-tabs .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
-  background: #f3f4f6;
+  background: transparent;
+  border: 1px solid #0891b2;
   color: #0891b2 !important;
 }
 
