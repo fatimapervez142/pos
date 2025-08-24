@@ -406,14 +406,10 @@ const getSeverity = (status) => {
   border-radius: 8px;
   padding: 6px 16px;
   font-weight: 500;
-  color: #0891b2 !important;
-}
-.custom-tabs .p-tabmenu-nav .p-tabmenuitem .p-menuitem-link .p-menuitem-text {
-  color: #0891b2 !important;
+  color: #0891b2;
 }
 .custom-tabs .p-tabmenu-nav .p-tabmenuitem.p-highlight .p-menuitem-link {
-  background: transparent;
-  border: 1px solid #0891b2;
+  background: #f3f4f6;
   color: #0891b2 !important;
 }
 
@@ -432,7 +428,7 @@ const getSeverity = (status) => {
 }
 .custom-table .p-datatable-tbody > tr > td {
   font-size: 13px;
-  padding: 10px 14px;
+  padding: 4px 6px;
 }
 
 /* Status Chip */
@@ -504,7 +500,7 @@ const getSeverity = (status) => {
 .page-btn:hover:not(:disabled) {
   background: #0e7490;
 }
-.page-btn.active {
+.page-btn.active { 
   background: #0891b2;
   color: white;
   border-color: #0891b2;
