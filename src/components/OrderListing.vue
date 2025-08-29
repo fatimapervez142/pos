@@ -23,7 +23,7 @@
       :value="paginatedOrders"
       striped-rows
       responsive-layout="scroll"
-      class="custom-table"
+      class="custom-table small-rows"
     >
       <Column field="orderNo" header="ORDER #"></Column>
       <Column field="orderType" header="ORDER TYPE"></Column>
@@ -426,10 +426,17 @@ const getSeverity = (status) => {
   color: #0e7490;
   padding: 10px 14px;
 }
-.custom-table .p-datatable-tbody > tr > td {
+/* Smaller rows */
+.custom-table.small-rows .p-datatable-tbody > tr > td {
+  padding: 4px 10px;   /* vertical = row height */
   font-size: 13px;
-  padding: 10px 14px;
+  line-height: 1.2;    /* controls text spacing */
 }
+.custom-table.small-rows .p-datatable-tbody > tr {
+  height: 32px;        /* safe min row height */
+}
+
+
 
 /* Status Chip */
 .status-chip {
