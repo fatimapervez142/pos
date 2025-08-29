@@ -74,36 +74,21 @@
       </Column>
     </DataTable>
 
-    <!-- Footer: showing + pagination -->
+    <!-- Footer: showing + per-page selector -->
     <div class="footer-bar mt-3">
       <div class="showing">
-        Showing {{ startIndex + 1 }}-{{ endIndex }} of {{ filteredOrders.length }}
+        ({{ startIndex + 1 }}-{{ endIndex }}/{{ filteredOrders.length }})
       </div>
-      <div class="pagination">
+      <div class="pagination per-page">
+        <span class="per-page-label">Per page:</span>
         <button
-          class="page-btn"
-          :disabled="currentPage === 1"
-          @click="prevPage"
+          v-for="opt in perPageOptions"
+          :key="opt"
+          class="page-size-btn"
+          :class="{ active: rowsPerPage === opt }"
+          @click="setRowsPerPage(opt)"
         >
-          Previous
-        </button>
-
-        <button
-          v-for="page in totalPages"
-          :key="page"
-          class="page-btn"
-          :class="{ active: page === currentPage }"
-          @click="goToPage(page)"
-        >
-          {{ page }}
-        </button>
-
-        <button
-          class="page-btn"
-          :disabled="currentPage === totalPages"
-          @click="nextPage"
-        >
-          Next
+          {{ opt }}
         </button>
       </div>
       <div class="spacer"></div>
@@ -129,7 +114,8 @@ const tabs = [
 
 const activeTab = ref(0) // default: Completed
 const currentPage = ref(1)
-const rowsPerPage = 10
+const rowsPerPage = ref(25)
+const perPageOptions = [25, 50, 100]
 
 // Mock Orders Data
 const allOrders = ref([
@@ -300,12 +286,12 @@ const filteredOrders = computed(() => {
 
 // Pagination
 const totalPages = computed(() =>
-  Math.ceil(filteredOrders.value.length / rowsPerPage)
+  Math.ceil(filteredOrders.value.length / rowsPerPage.value)
 )
 
-const startIndex = computed(() => (currentPage.value - 1) * rowsPerPage)
+const startIndex = computed(() => (currentPage.value - 1) * rowsPerPage.value)
 const endIndex = computed(() => {
-  const end = startIndex.value + rowsPerPage
+  const end = startIndex.value + rowsPerPage.value
   return Math.min(end, filteredOrders.value.length)
 })
 
@@ -321,6 +307,11 @@ const prevPage = () => {
 }
 const nextPage = () => {
   if (currentPage.value < totalPages.value) currentPage.value++
+}
+
+const setRowsPerPage = (size) => {
+  rowsPerPage.value = size
+  currentPage.value = 1
 }
 
 // Toolbar actions (placeholders)
@@ -428,12 +419,12 @@ const getSeverity = (status) => {
 }
 /* Smaller rows */
 .custom-table.small-rows .p-datatable-tbody > tr > td {
-  padding: 4px 10px;   /* vertical = row height */
+  padding: 0 10px;   /* remove top/bottom padding */
   font-size: 13px;
-  line-height: 1.2;    /* controls text spacing */
+  line-height: 1.2;
 }
 .custom-table.small-rows .p-datatable-tbody > tr {
-  height: 32px;        /* safe min row height */
+  height: 28px;        /* compact row height */
 }
 
 
@@ -494,6 +485,8 @@ const getSeverity = (status) => {
   justify-content: center;
   justify-self: center;
 }
+.pagination.per-page { gap: 6px; }
+.per-page-label { color: #6b7280; font-size: 13px; margin-right: 2px; }
 .page-btn {
   border: 1px solid #0891b2;
   background: white;
@@ -516,5 +509,13 @@ const getSeverity = (status) => {
   opacity: 0.5;
   cursor: not-allowed;
 }
+.page-size-btn {
+  border: none;
+  background: transparent;
+  color: #0ea5b7;
+  font-weight: 600;
+  cursor: pointer;
+}
+.page-size-btn.active { color: #111827; cursor: default; }
 .spacer { height: 0; }
 </style>
